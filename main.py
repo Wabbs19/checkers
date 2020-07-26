@@ -1,8 +1,8 @@
 from board import Board
 import move
-from game import pick_row, set_num, setting_to_eat_value_and_inversing_moves_input_value, step_plus, show_board, gameplay
-from checkings import check_char_inputs, check_coordinates, is_out_of_bounds
-
+from game import pick_row, set_num, setting_to_eat_value_and_inversing_moves_input_value, step_plus, show_board, \
+    gameplay
+from checkings import check_char_inputs, check_coordinates, is_out_of_bounds, if_a_move_was_made
 
 board = Board().create_board
 
@@ -10,7 +10,7 @@ pos_or_neg = [1, -1]
 
 show_board(board)
 
-
+prev_figure = ''
 j = 0
 while j == 0:
 
@@ -48,7 +48,8 @@ while j == 0:
         step_plus_list = step_plus(my_move.get_moves_input(
         ), my_move.get_column(), my_move.get_row(), num)
 
-        cr_after = is_out_of_bounds(step_plus_list, my_move.get_column(), my_move.get_row())
+        cr_after = is_out_of_bounds(
+            step_plus_list, my_move.get_column(), my_move.get_row())
 
         col_after = cr_after[0]
         row_after = cr_after[1]
@@ -56,8 +57,13 @@ while j == 0:
         row_move = pick_row(my_move.get_figure(),
                             my_move.get_moves_input(), pos_or_neg)
 
+        if_a_move_was_made(board, my_move.get_figure(),
+                           col_after, row_after, prev_figure, my_move)
+
         gameplay(col_after, row_after, my_move.get_column(), my_move.get_row(),
-                 my_move.get_to_eat(), num, row_move, my_move.get_figure(), board)
+                 my_move.get_to_eat(), num, row_move, my_move.get_figure(), board, my_move.get_moves_input())
+
+        prev_figure = figure
 
         show_board(board)
 

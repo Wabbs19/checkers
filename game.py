@@ -61,9 +61,10 @@ def pick_row(figure, moves_input, pos_or_neg_value: list) -> int:
     return row_move
 
 
-def gameplay(col_after, row_after, col, row, to_eat, num, row_move, figure, board):
+def gameplay(col_after, row_after, col, row, to_eat, num, row_move, figure, board, moves_input):
 
-    if board[col_after][row_after] == ' ':
+    if board[col_after][row_after] == ' ' and (moves_input != 'rb' and moves_input != 'lb' and
+                                               moves_input != 'lw' and moves_input != 'rw'):
         board[col][row] = ' '
         board[col_after][row_after] = figure
 
