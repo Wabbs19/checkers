@@ -67,11 +67,17 @@ def gameplay(col_after, row_after, col, row, to_eat, num, row_move, figure, boar
                                                moves_input != 'lw' and moves_input != 'rw'):
         board[col][row] = ' '
         board[col_after][row_after] = figure
+        previous_figure = figure
 
     elif board[col_after][row_after] == to_eat and board[col_after-num][row_after + row_move] == ' ':
         board[col][row] = ' '
         board[col_after][row_after] = ' '
         board[col_after-num][row_after + row_move] = figure
+        previous_figure = figure
+    else:
+        previous_figure = 'c'
+
+    return [previous_figure, col_after - num, row_after + row_move]
 
 
 def show_board(board: list):
